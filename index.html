@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SLBFE Smart Employment Gateway</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand-block">
+        <span class="brand-mark" aria-label="Sri Lanka flag">
+          <img src="assets/Flag_of_Sri_Lanka.svg" alt="Flag_of_Sri_Lanka" />
+        </span>
+        <div>
+          <p class="eyebrow">Sri Lanka Bureau of Foreign Employment</p>
+          <h1>Smart Employment Gateway</h1>
+        </div>
+      </div>
+      <div class="session-card">
+        <span class="status-dot"></span>
+        <span id="sessionStatus">Not signed in</span>
+        <button id="logoutBtn" class="ghost" type="button">Logout</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="hero-band">
+        <div>
+          <p class="section-label">Final year API dashboard</p>
+          <h2>Manage citizens, documents, complaints, verification, and candidate matching in one smart console.</h2>
+        </div>
+        <div class="hero-actions">
+          <button id="healthBtn" type="button">API health</button>
+          <button id="overviewBtn" class="secondary" type="button">Load analytics</button>
+          <button id="topSkillsBtn" class="secondary" type="button">Top skills</button>
+        </div>
+      </section>
+
+      <section class="kpi-grid" aria-label="Dashboard statistics">
+        <article class="kpi-card cyan">
+          <span>Total citizens</span>
+          <strong id="kpiCitizens">--</strong>
+        </article>
+        <article class="kpi-card green">
+          <span>Verified rate</span>
+          <strong id="kpiVerified">--</strong>
+        </article>
+        <article class="kpi-card amber">
+          <span>Open complaints</span>
+          <strong id="kpiComplaints">--</strong>
+        </article>
+        <article class="kpi-card rose">
+          <span>Documents</span>
+          <strong id="kpiDocuments">--</strong>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="module accent-blue">
+          <div class="module-head">
+            <div>
+              <p class="section-label">Authentication</p>
+              <h3>Access Control</h3>
+            </div>
+            <span class="pill">JWT + roles</span>
+          </div>
+          <div class="tabs" role="tablist">
+            <button class="tab active" type="button" data-auth-tab="login">Login</button>
+            <button class="tab" type="button" data-auth-tab="register">Register</button>
+          </div>
+          <div class="quick-logins">
+            <button type="button" data-login="officer@slbfe.local">Officer</button>
+            <button type="button" data-login="company@slbfe.local">Company</button>
+            <button type="button" data-login="staff@slbfe.local">Staff</button>
+          </div>
+          <form id="loginForm" class="stack">
+            <label>Email <input name="email" type="email" value="officer@slbfe.local" required /></label>
+            <label>Password <input name="password" type="password" value="Password123!" required /></label>
+            <button type="submit">Login securely</button>
+          </form>
+          <form id="registerForm" class="stack hidden">
+            <div class="grid two">
+              <label>National ID <input name="nationalId" required /></label>
+              <label>Full name <input name="fullName" required /></label>
+              <label>Role
+                <select name="role">
+                  <option value="citizen">Citizen</option>
+                  <option value="job_seeker">Job seeker</option>
+                  <option value="officer">Officer</option>
+                  <option value="company">Company</option>
+                  <option value="staff">Staff</option>
+                </select>
+              </label>
+              <label>Age <input name="age" type="number" min="16" max="100" required /></label>
+              <label>Email <input name="email" type="email" required /></label>
+              <label>Password <input name="password" type="password" minlength="8" required /></label>
+              <label>Profession <input name="profession" /></label>
+              <label>Affiliation <input name="affiliation" /></label>
+            </div>
+            <label>Address <textarea name="address" required></textarea></label>
+            <div class="grid two">
+              <label>Latitude <input name="currentLatitude" type="number" step="any" /></label>
+              <label>Longitude <input name="currentLongitude" type="number" step="any" /></label>
+            </div>
+            <button type="submit">Create account</button>
+          </form>
+        </article>
+
+        <article class="module accent-green">
+          <div class="module-head">
+            <div>
+              <p class="section-label">Citizen services</p>
+              <h3>Profile & Location</h3>
+            </div>
+            <span class="pill">Live records</span>
+          </div>
+          <form id="profileSearchForm" class="inline">
+            <input name="nid" placeholder="National ID" value="930000004V" required />
+            <button type="submit">Load</button>
+          </form>
+          <form id="profileUpdateForm" class="stack">
+            <div class="grid two">
+              <label>National ID <input name="nid" value="930000004V" required /></label>
+              <label>Profession <input name="profession" placeholder="Caregiver, Electrician..." /></label>
+              <label>Latitude <input name="currentLatitude" type="number" step="any" /></label>
+              <label>Longitude <input name="currentLongitude" type="number" step="any" /></label>
+            </div>
+            <label>Address <textarea name="address"></textarea></label>
+            <div class="grid three">
+              <label>Qualification <input name="qualificationName" /></label>
+              <label>Institution <input name="institution" /></label>
+              <label>Year <input name="yearCompleted" type="number" /></label>
+            </div>
+            <button type="submit">Update profile</button>
+          </form>
+        </article>
+
+        <article class="module accent-amber">
+          <div class="module-head">
+            <div>
+              <p class="section-label">Evidence center</p>
+              <h3>Documents & Contacts</h3>
+            </div>
+            <span class="pill">Uploads</span>
+          </div>
+          <form id="documentForm" class="stack">
+            <div class="grid two">
+              <label>National ID <input name="nid" value="930000004V" required /></label>
+              <label>Document type
+                <select name="documentType">
+                  <option value="birth_certificate">Birth certificate</option>
+                  <option value="cv">CV</option>
+                  <option value="passport">Passport copy</option>
+                  <option value="certificate">Qualification certificate</option>
+                </select>
+              </label>
+            </div>
+            <input name="document" type="file" required />
+            <button type="submit">Upload document</button>
+          </form>
+          <form id="contactForm" class="stack divider">
+            <div class="grid two">
+              <label>National ID <input name="nid" value="930000004V" required /></label>
+              <label>Contact name <input name="contactName" required /></label>
+              <label>Relationship <input name="relationship" required /></label>
+              <label>Phone <input name="phone" required /></label>
+              <label>Email <input name="email" type="email" /></label>
+            </div>
+            <label>Address <textarea name="address"></textarea></label>
+            <button type="submit">Add contact</button>
+          </form>
+        </article>
+
+        <article class="module accent-purple">
+          <div class="module-head">
+            <div>
+              <p class="section-label">Recruitment intelligence</p>
+              <h3>Verification & Candidate Match</h3>
+            </div>
+            <span class="pill">Smart score</span>
+          </div>
+          <form id="verifyForm" class="stack">
+            <div class="grid two">
+              <label>National ID <input name="nid" value="930000004V" required /></label>
+              <label>Status
+                <select name="isVerified">
+                  <option value="true">Verified</option>
+                  <option value="false">Not verified</option>
+                </select>
+              </label>
+            </div>
+            <label>Notes <textarea name="verificationNotes"></textarea></label>
+            <button type="submit">Update verification</button>
+          </form>
+          <form id="candidateSearchForm" class="inline divider">
+            <input name="qualification" placeholder="Qualification" value="Caregiver" />
+            <input name="profession" placeholder="Profession" />
+            <button type="submit">Find candidates</button>
+          </form>
+          <form id="deactivateForm" class="inline danger-line">
+            <input name="nid" placeholder="National ID" required />
+            <button class="danger" type="submit">Deactivate</button>
+          </form>
+        </article>
+
+        <article class="module accent-rose">
+          <div class="module-head">
+            <div>
+              <p class="section-label">Welfare desk</p>
+              <h3>Complaints & Replies</h3>
+            </div>
+            <span class="pill">Case tracking</span>
+          </div>
+          <form id="complaintForm" class="stack">
+            <label>Subject <input name="subject" required /></label>
+            <label>Content <textarea name="content" required></textarea></label>
+            <button type="submit">Submit complaint</button>
+          </form>
+          <form id="complaintsListForm" class="inline divider">
+            <select name="status">
+              <option value="">All statuses</option>
+              <option value="open">Open</option>
+              <option value="replied">Replied</option>
+              <option value="closed">Closed</option>
+            </select>
+            <button type="submit">List complaints</button>
+          </form>
+          <form id="replyForm" class="stack">
+            <div class="grid two">
+              <label>Complaint ID <input name="id" type="number" required /></label>
+              <label>Status
+                <select name="status">
+                  <option value="replied">Replied</option>
+                  <option value="closed">Closed</option>
+                </select>
+              </label>
+            </div>
+            <label>Reply <textarea name="reply" required></textarea></label>
+            <button type="submit">Send reply</button>
+          </form>
+        </article>
+
+        <article class="module output-module">
+          <div class="module-head">
+            <div>
+              <p class="section-label">Runtime evidence</p>
+              <h3>API Result</h3>
+            </div>
+            <span class="pill">JSON</span>
+          </div>
+          <pre id="output">{ "message": "Run an action to see API output here." }</pre>
+        </article>
+      </section>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
