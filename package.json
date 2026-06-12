@@ -1,0 +1,36 @@
+{
+  "name": "slbfe-api-coursework",
+  "version": "1.0.0",
+  "description": "CS406.3 coursework REST API and client application for SLBFE foreign employment services.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "db:seed": "node scripts/seed.js",
+    "check": "node --check src/server.js && node --check src/config/db.js && node --check src/middleware/auth.js && node --check src/middleware/errorHandler.js && node --check src/middleware/requestContext.js && node --check src/middleware/upload.js && node --check src/routes/auth.routes.js && node --check src/routes/citizen.routes.js && node --check src/routes/complaint.routes.js && node --check src/routes/analytics.routes.js && node --check src/utils/asyncHandler.js && node --check src/utils/errors.js && node --check src/utils/validators.js && node --check scripts/seed.js"
+  },
+  "keywords": [
+    "express",
+    "sql-server",
+    "rest-api",
+    "coursework"
+  ],
+  "author": "CS406.3 Student",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mssql": "^11.0.1",
+    "multer": "^2.0.2",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

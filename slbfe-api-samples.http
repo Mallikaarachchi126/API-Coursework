@@ -1,0 +1,114 @@
+@baseUrl = http://localhost:4000/api
+@token = paste-token-here
+
+### Health
+GET {{baseUrl}}/health
+
+### Login as officer
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "officer@slbfe.local",
+  "password": "Password123!"
+}
+
+### Register a citizen
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "nationalId": "950000001V",
+  "fullName": "Test Citizen",
+  "role": "job_seeker",
+  "age": 25,
+  "address": "Colombo",
+  "currentLatitude": 6.9271,
+  "currentLongitude": 79.8612,
+  "profession": "Caregiver",
+  "affiliation": "Independent",
+  "email": "test@example.com",
+  "password": "Password123!"
+}
+
+### Get citizen
+GET {{baseUrl}}/citizens/930000004V
+Authorization: Bearer {{token}}
+
+### Update profile
+PUT {{baseUrl}}/citizens/930000004V/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "address": "Galle",
+  "profession": "Electrician",
+  "currentLatitude": 6.0535,
+  "currentLongitude": 80.221,
+  "qualifications": [
+    {
+      "name": "Advanced Electrical Maintenance",
+      "institution": "Technical College Galle",
+      "yearCompleted": 2023
+    }
+  ]
+}
+
+### Verify citizen
+PUT {{baseUrl}}/citizens/930000004V/verify
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "isVerified": true,
+  "verificationNotes": "Documents checked."
+}
+
+### Find candidates
+GET {{baseUrl}}/citizens/find?qualification=Caregiver&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Analytics overview
+GET {{baseUrl}}/analytics/overview
+Authorization: Bearer {{token}}
+
+### Top qualifications
+GET {{baseUrl}}/analytics/top-qualifications
+Authorization: Bearer {{token}}
+
+### Add contact
+POST {{baseUrl}}/citizens/930000004V/contacts
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "contactName": "Sunil Silva",
+  "relationship": "Father",
+  "phone": "+94771234567",
+  "email": "sunil@example.com",
+  "address": "Galle"
+}
+
+### Submit complaint
+POST {{baseUrl}}/complaints
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "subject": "Need assistance",
+  "content": "I need bureau support after arriving at the foreign company."
+}
+
+### List complaints
+GET {{baseUrl}}/complaints?page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Reply to complaint
+PUT {{baseUrl}}/complaints/1/reply
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "reply": "The welfare division will contact you shortly.",
+  "status": "replied"
+}
